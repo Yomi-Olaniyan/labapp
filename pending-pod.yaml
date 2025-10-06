@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+   name: pending-pod-error-simulator
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+     name: resource-allocation
+     namespace: pending-pod-error-simulator
+spec:
+   hard:
+     requests.cpu: 1000m
+     requests.memory: "100Mi"
+     limits.cpu: 1200m
+     limits.memory: "200Mi"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: pending-pod-deployment
+   namespace: pending-pod-error-simulator
+spec:
+   replicas: 2
+   selector:
+      matchLabels:
+           app: pending-app
+   template:
+       metadata:
+           labels:
+              app: pending-app
+       spec:
+          nodeSelector:
+            disktype: ssd
+          containers:
+          - name: from-my-docker-hub
+            image: olaab/localubuntu-server-container:v1.0
+            command: ["/bin/sh", "-c", "exit 1"]
+            ports:
+            - containerPort: 80
+            resources:
+               requests:
+                  cpu: 200m
+                  memory: 10Mi
+               limits:
+                   cpu: 500m
+                   memory: 20Mi
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pending-pod-service
+  namespace: pending-pod-error-simulator
+spec:
+  type: NodePort
+  selector:
+    app: pending-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080
