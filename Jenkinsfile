@@ -1,17 +1,30 @@
 pipeline {
     agent any
 
+    environment {
+        KUBECONFIG = '/var/lib/jenkins/.kube/config'
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Yomi-Olaniyan/labapp.git'
+                git branch: 'main', url: 'https://github.com/Yomi-Olaniyan/labapp.git'
+            }
+        }
+
+        stage('Debug Workspace') {
+            steps {
+                echo "Current working directory:"
+                sh 'pwd'
+                echo "Files in workspace:"
+                sh 'ls -la'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f pending-pod.yaml'
+                echo "Deploying pending-pod.yaml using full path..."
+                sh 'kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f /var/lib/jenkins/labapp/pending-pod.yaml'
             }
         }
     }
