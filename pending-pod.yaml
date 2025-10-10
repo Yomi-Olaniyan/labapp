@@ -36,7 +36,6 @@ spec:
           containers:
           - name: from-my-docker-hub
             image: olaab/localubuntu-server-container:v1.0
-            command: ["/bin/sh", "-c", "exit 1"]
             ports:
             - containerPort: 80
             resources:
