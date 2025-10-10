@@ -53,7 +53,7 @@ spec:
               port: 80
             initialDelaySeconds: 5
             periodSeconds: 5
-            failureThreshold: 6
+            failureThreshold: 3
             successThreshold: 1
 ---
 apiVersion: v1
