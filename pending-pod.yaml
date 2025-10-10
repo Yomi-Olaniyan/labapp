@@ -37,7 +37,7 @@ spec:
         - name: from-my-docker-hub
           image: olaab/localubuntu-server-container:v1.0
           command: ["/bin/sh"]
-          args: ["-c", "echo 'Sleeping for 20 seconds...'; sleep 20; echo 'Starting nginx now...'; nginx -g 'daemon off;'"]
+          args: ["-c", "sleep 35 && nginx -g 'daemon off;'"]
           ports:
             - containerPort: 80
           resources:
