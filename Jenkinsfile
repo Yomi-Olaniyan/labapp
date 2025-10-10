@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo "Deploying pending-pod.yaml using full path..."
-                sh 'kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f /var/lib/jenkins/labapp/pending-pod.yaml'
+                sh 'kubectl --kubeconfig=/var/lib/jenkins/.kube/config apply -f pending-pod.yaml'
             }
         }
     }
