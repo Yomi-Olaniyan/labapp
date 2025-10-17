@@ -37,7 +37,7 @@ spec:
         - name: from-my-docker-hub
           image: olaab/localubuntu-server-container:v1.0
           command: ["/bin/sh"]
-          args: ["-c", "sleep 35 && nginx -g 'daemon off;'"]
+          args: ["-c", "sleep 3 && nginx -g 'daemon off;'"]
           ports:
             - containerPort: 80
           resources:
@@ -51,7 +51,7 @@ spec:
             httpGet:
               path: /
               port: 80
-            initialDelaySeconds: 0
+            initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 3
             successThreshold: 1
