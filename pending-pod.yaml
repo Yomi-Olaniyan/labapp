@@ -11,9 +11,9 @@ metadata:
   namespace: pending-pod-error-simulator
 spec:
   hard:
-    requests.cpu: 1000m
+    requests.cpu: 700m
     requests.memory: "100Mi"
-    limits.cpu: 1200m
+    limits.cpu: 1000m
     limits.memory: "200Mi"
 ---
 apiVersion: apps/v1
@@ -45,7 +45,7 @@ spec:
               cpu: 200m
               memory: 10Mi
             limits:
-              cpu: 500m
+              cpu: 400m
               memory: 20Mi
           startupProbe:
             httpGet:
